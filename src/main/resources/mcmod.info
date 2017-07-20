@@ -1,0 +1,13 @@
+[{
+  "modid": "logfilters",
+  "name": "LogFilters",
+  "description": "",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://coolsquid.me",
+  "authorList": ["CoolSquid"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}]
