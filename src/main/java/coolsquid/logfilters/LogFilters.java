@@ -2,10 +2,7 @@ package coolsquid.logfilters;
 
 import java.io.File;
 import java.util.Map;
-
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.relauncher.IFMLCallHook;
-import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
+import java.util.Map.Entry;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -13,13 +10,18 @@ import org.apache.logging.log4j.Logger;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import com.typesafe.config.ConfigValue;
+
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.relauncher.IFMLCallHook;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 
 @Mod(modid = LogFilters.MODID, name = LogFilters.NAME, version = LogFilters.VERSION, dependencies = LogFilters.DEPENDENCIES, updateJSON = LogFilters.UPDATE_JSON)
 public class LogFilters implements IFMLLoadingPlugin, IFMLCallHook {
 
 	public static final String MODID = "logfilters";
 	public static final String NAME = "LogFilters";
-	public static final String VERSION = "1.0.0";
+	public static final String VERSION = "1.0.1";
 	public static final String DEPENDENCIES = "required-after:forge@[14.21.1.2387,)";
 	public static final String UPDATE_JSON = "https://coolsquid.me/api/version/logfilters.json";
 
@@ -57,8 +59,9 @@ public class LogFilters implements IFMLLoadingPlugin, IFMLCallHook {
 			file.createNewFile();
 		}
 		Config config = ConfigFactory.parseFile(file);
-		for (String key : config.root().keySet()) {
-			Logger log = key.equals("root") ? LogManager.getRootLogger() : LogManager.getLogger(key);
+		for (Entry<String, ConfigValue> e : config.entrySet()) {
+			String key = e.getKey();
+			Logger log = key.equals("root") ? LogManager.getRootLogger() : LogManager.getLogger(key.startsWith("\"") && key.endsWith("\"") ? key.substring(1, key.length() - 1) : key);
 			if (log instanceof org.apache.logging.log4j.core.Logger) {
 				for (Config filter : config.getConfigList(key)) {
 					LogFilter logFilter;
