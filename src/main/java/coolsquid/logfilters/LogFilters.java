@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.relauncher.IFMLCallHook;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 
-@Mod(modid = LogFilters.MODID, name = LogFilters.NAME, version = LogFilters.VERSION, dependencies = LogFilters.DEPENDENCIES, updateJSON = LogFilters.UPDATE_JSON)
+@Mod(modid = LogFilters.MODID, name = LogFilters.NAME, version = LogFilters.VERSION, dependencies = LogFilters.DEPENDENCIES, updateJSON = LogFilters.UPDATE_JSON, acceptableRemoteVersions = "*")
 public class LogFilters implements IFMLLoadingPlugin, IFMLCallHook {
 
 	public static final String MODID = "logfilters";
